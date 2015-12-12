@@ -10,7 +10,6 @@
 		D68C0E3D1C1C1274007235EE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D68C0E3C1C1C1274007235EE /* main.m */; };
 		D68C0E481C1C1274007235EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D68C0E471C1C1274007235EE /* Assets.xcassets */; };
 		D68C0E4B1C1C1274007235EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D68C0E491C1C1274007235EE /* LaunchScreen.storyboard */; };
-		D68C0E571C1C1297007235EE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D68C0E541C1C1297007235EE /* AppDelegate.m */; };
 		D68C0E5D1C1C1301007235EE /* AGLStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68C0E5C1C1C1301007235EE /* AGLStartViewController.m */; };
 		D68C0E721C1C2C3F007235EE /* UIViewController+AGLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D68C0E711C1C2C3F007235EE /* UIViewController+AGLHelper.m */; };
 		D68C0E781C1C2CBE007235EE /* AGLAlbumListController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68C0E771C1C2CBE007235EE /* AGLAlbumListController.m */; };
@@ -18,6 +17,7 @@
 		D68C0E841C1C35A6007235EE /* AGLPhotoCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68C0E831C1C35A6007235EE /* AGLPhotoCollectionController.m */; };
 		D68C0E871C1C36F7007235EE /* AGLPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D68C0E861C1C36F7007235EE /* AGLPhotoCollectionViewCell.m */; };
 		D68C0E8A1C1C3810007235EE /* AGLALAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D68C0E891C1C3810007235EE /* AGLALAssetModel.m */; };
+		D68C0EC21C1C5921007235EE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D68C0EC11C1C5921007235EE /* AppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +26,6 @@
 		D68C0E471C1C1274007235EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D68C0E4A1C1C1274007235EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D68C0E4C1C1C1274007235EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D68C0E531C1C1297007235EE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		D68C0E541C1C1297007235EE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D68C0E5B1C1C1301007235EE /* AGLStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLStartViewController.h; sourceTree = "<group>"; };
 		D68C0E5C1C1C1301007235EE /* AGLStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLStartViewController.m; sourceTree = "<group>"; };
 		D68C0E701C1C2C3F007235EE /* UIViewController+AGLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AGLHelper.h"; sourceTree = "<group>"; };
@@ -42,6 +40,8 @@
 		D68C0E861C1C36F7007235EE /* AGLPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLPhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		D68C0E881C1C3810007235EE /* AGLALAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLALAssetModel.h; sourceTree = "<group>"; };
 		D68C0E891C1C3810007235EE /* AGLALAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLALAssetModel.m; sourceTree = "<group>"; };
+		D68C0EC01C1C5921007235EE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D68C0EC11C1C5921007235EE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +74,7 @@
 		D68C0E3A1C1C1274007235EE /* AGLImagePicker */ = {
 			isa = PBXGroup;
 			children = (
+				D68C0EBF1C1C5921007235EE /* Delegate */,
 				D68C0E521C1C1297007235EE /* Main */,
 				D68C0E471C1C1274007235EE /* Assets.xcassets */,
 				D68C0E491C1C1274007235EE /* LaunchScreen.storyboard */,
@@ -94,8 +95,6 @@
 		D68C0E521C1C1297007235EE /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				D68C0E531C1C1297007235EE /* AppDelegate.h */,
-				D68C0E541C1C1297007235EE /* AppDelegate.m */,
 				D68C0E731C1C2C76007235EE /* ImagePick */,
 				D68C0E591C1C12C5007235EE /* Start */,
 			);
@@ -186,6 +185,15 @@
 			path = Picker;
 			sourceTree = "<group>";
 		};
+		D68C0EBF1C1C5921007235EE /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				D68C0EC01C1C5921007235EE /* AppDelegate.h */,
+				D68C0EC11C1C5921007235EE /* AppDelegate.m */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -256,10 +264,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D68C0E571C1C1297007235EE /* AppDelegate.m in Sources */,
 				D68C0E8A1C1C3810007235EE /* AGLALAssetModel.m in Sources */,
 				D68C0E5D1C1C1301007235EE /* AGLStartViewController.m in Sources */,
 				D68C0E811C1C3580007235EE /* AGLPhotoPickerController.m in Sources */,
+				D68C0EC21C1C5921007235EE /* AppDelegate.m in Sources */,
 				D68C0E3D1C1C1274007235EE /* main.m in Sources */,
 				D68C0E871C1C36F7007235EE /* AGLPhotoCollectionViewCell.m in Sources */,
 				D68C0E721C1C2C3F007235EE /* UIViewController+AGLHelper.m in Sources */,
