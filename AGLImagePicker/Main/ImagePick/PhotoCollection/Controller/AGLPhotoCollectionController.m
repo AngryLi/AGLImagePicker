@@ -7,6 +7,7 @@
 //
 
 #import "AGLPhotoCollectionController.h"
+#import "AGLPhotoBrowserController.h"
 
 #import "AGLPhotoCollectionViewCell.h"
 
@@ -80,10 +81,24 @@
         }];
     }
 }
+-(void)showPhotoBrowerWithIndex:(NSInteger)currentIndex{
+    
+    AGLPhotoBrowserController *browserVc = [[AGLPhotoBrowserController alloc] init];
+    [browserVc setValue:@(YES) forKeyPath:@"isEditing"];
+    browserVc.currentPage = currentIndex;
+    browserVc.photos = self.imageArray;
+    browserVc.doneAssets=self.selectAssetList;
+    
+    UINavigationController *nav=[[UINavigationController alloc] initWithRootViewController:browserVc];
+    [self presentViewController:nav animated:YES completion:nil];
+    
+    // [self.navigationController pushViewController:browserVc animated:YES];
+    
+}
 #pragma mark - event
 - (void)e_onClickConfirm
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
     NSLog(@"选取了%@张照片",@(_selectAssetList.count));
 }
 #pragma mark - UICollectionView
@@ -111,5 +126,10 @@
         };
     }
     return cell;
+}
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    [self showPhotoBrowerWithIndex:indexPath.row];
 }
 @end
