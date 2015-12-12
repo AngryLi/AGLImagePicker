@@ -12,6 +12,10 @@
 Main | 存放主体代码。</p>项目入口等。
 Delegate | AppDelegate
 
+## 分支介绍
+
+develop分支是最新开发分支
+
 ## 目标
 
 项目完成之后，托管到github上。
