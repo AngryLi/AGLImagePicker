@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class AGLALAssetModel;
+typedef void(^UpdateSelectBlock)(AGLALAssetModel *alassetModel);
 @interface AGLPhotoCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong, readonly) AGLALAssetModel *alassetModel;
+@property (nonatomic, copy) UpdateSelectBlock _updateSelectBlock;
+
 - (void)setAlassetModel:(AGLALAssetModel *)alassetModel;
 @end

@@ -22,6 +22,14 @@
     _alAsset = alAsset;
     self.image = [UIImage imageWithCGImage:alAsset.thumbnail];
 }
+- (void)setAssetId:(NSNumber *)assetId
+{
+    _assetId = assetId;
+}
+- (void)setSelected:(BOOL)selected
+{
+    _selected = selected;
+}
 - (UIImage *)getThumbnail
 {
     return self.image;

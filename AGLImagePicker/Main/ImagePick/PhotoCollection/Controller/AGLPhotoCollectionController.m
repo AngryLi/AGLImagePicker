@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) ALAssetsGroup *currentGroup;
 @property (nonatomic, strong) NSMutableArray *imageArray;
+
+@property (nonatomic, strong) NSMutableArray *selectAssetList;
 @end
 
 @implementation AGLPhotoCollectionController
@@ -32,6 +34,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(e_onClickConfirm)];
+        self.navigationItem.rightBarButtonItem = rightItem;
+    });
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     CGFloat row = 4;
     CGFloat margin = 3;
@@ -55,6 +61,7 @@
 #pragma mark - private
 - (void)p_reloadDatas
 {
+    self.selectAssetList = [@[] mutableCopy];
     self.imageArray = [@[] mutableCopy];
     if (self.currentGroup == nil) {
         
@@ -63,6 +70,7 @@
             if (result) {
                 if ([[result valueForProperty:ALAssetPropertyType] isEqualToString:ALAssetTypePhoto]) {
                     AGLALAssetModel *asset = [AGLALAssetModel new];
+                    [asset setAssetId:@(index)];
                     [asset setAlAsset:result];
                     [self.imageArray insertObject:asset atIndex:0];
                 }
@@ -71,6 +79,12 @@
             }
         }];
     }
+}
+#pragma mark - event
+- (void)e_onClickConfirm
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"选取了%@张照片",@(_selectAssetList.count));
 }
 #pragma mark - UICollectionView
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -87,6 +101,15 @@
 {
     AGLPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AGLPhotoCollectionViewCell" forIndexPath:indexPath];
     [cell setAlassetModel:self.imageArray[indexPath.item]];
+    if (cell._updateSelectBlock == nil) {
+        cell._updateSelectBlock = ^(AGLALAssetModel *alssetModel) {
+            if (alssetModel.isSelected) {
+                [self.selectAssetList addObject:alssetModel.assetId];
+            } else {
+                [self.selectAssetList removeObject:alssetModel.assetId];
+            }
+        };
+    }
     return cell;
 }
 @end
