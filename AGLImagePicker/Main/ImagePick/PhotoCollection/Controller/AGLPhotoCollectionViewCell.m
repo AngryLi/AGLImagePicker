@@ -11,8 +11,6 @@
 #import "AGLALAssetModel.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-#import "UIImageView+WebCache.h"
-
 @interface AGLPhotoCollectionViewCell ()
 @property (nonatomic, strong) UIImageView *imageView;
 @end
