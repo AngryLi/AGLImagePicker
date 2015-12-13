@@ -40,7 +40,9 @@
 #pragma mark - private,Event
 - (void)e_onclickSelectImage:(UIButton *)sender
 {
-    [self showSelecPhotoAlert];
+    [self showSelecPhotoAlertWithCompleteHander:^(UIImage *image) {
+        
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
