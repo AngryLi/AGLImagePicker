@@ -10,8 +10,12 @@
 
 #import "AGLPhotoPickerController.h"
 
+#import <objc/runtime.h>
+
 @interface UIViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @end
+
+static void *AGLCompleteHanderKey = @"AGLCompleteHanderKey";
 
 @implementation UIViewController (AGLHelper)
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message
@@ -25,11 +29,12 @@
         alertVc.title = title;
         alertVc.message = message;
         [alertVc addAction:cancelAction];
-        [self showViewController:alertVc sender:nil];
+        [self presentViewController:alertVc animated:YES completion:nil];
     }
 }
-- (void)showSelecPhotoAlert
+- (void)showSelecPhotoAlertWithCompleteHander:(void (^)(UIImage *))completeHander
 {
+    objc_setAssociatedObject(self, AGLCompleteHanderKey, completeHander, OBJC_ASSOCIATION_COPY);
     if ([UIDevice currentDevice].systemVersion.floatValue < 8.0) {
         // 按钮的index从上到下0开始数(与位置有关,与类型无关)
         UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择方式" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"相机", @"从相册选取", nil];
@@ -46,7 +51,7 @@
         [alertVc addAction:cancelAction];
         [alertVc addAction:cameraAction];
         [alertVc addAction:albumAction];
-        [self showViewController:alertVc sender:nil];
+        [self presentViewController:alertVc animated:YES completion:nil];
     }
 }
 #pragma mark - 使用系统相机
@@ -79,8 +84,13 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     [picker dismissViewControllerAnimated:YES completion:^{
-//        UIImage *oroginalImage = info[@"UIImagePickerControllerOriginalImage"];
-//        UIImage *editedImage = info[@"UIImagePickerControllerEditedImage"];
+        void(^callBackBock)(UIImage *image) = objc_getAssociatedObject(self, AGLCompleteHanderKey);
+        //        UIImage *originalImage = info[@"UIImagePickerControllerOriginalImage"];
+        UIImage *editedImage = info[@"UIImagePickerControllerEditedImage"];
+        if (callBackBock) {
+            callBackBock(editedImage);
+            callBackBock = nil;
+        }
     }];
 }
 #pragma mark - UIActionSheetDelegate

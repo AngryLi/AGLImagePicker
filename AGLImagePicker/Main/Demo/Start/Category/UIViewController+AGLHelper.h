@@ -9,6 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UIViewController (AGLHelper)
-
-- (void)showSelecPhotoAlert;
+- (void)showSelecPhotoAlertWithCompleteHander:(void(^)(UIImage *image))completeHander;
 @end
