@@ -5,8 +5,8 @@
 ## 项目结构
 文件名 | 子目录 | 内容简介
 --- | --- | ---
-Main |  | 存放主体代码。</p>项目入口等。
- | Demo | 调用代码.</p>这里面使用封装好的ImagePicker。并实现picker的代理。
+Main |  | 存放主体代码。<p>项目入口等。
+ | Demo | 调用代码.<p/>这里面使用封装好的ImagePicker。并实现picker的代理。
  | ImagePick | 照片选择器封装在这个文件件
 Delegate |  | AppDelegate
 ## 分支介绍
