@@ -7,21 +7,28 @@
 //
 
 #import "AGLPhotoCollectionController.h"
-#import "AGLPhotoBrowserController.h"
+#import "AGLBrowerViewController.h"
 
 #import "AGLPhotoCollectionViewCell.h"
+
+#import "AGLSendButton.h"
 
 #import "AGLALAssetModel.h"
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface AGLPhotoCollectionController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface AGLPhotoCollectionController () <UICollectionViewDataSource, UICollectionViewDelegate, AGLBrowerViewControllerDelegate>
+{
+    UIBarButtonItem *preItem;
+}
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @property (nonatomic, strong) ALAssetsGroup *currentGroup;
 @property (nonatomic, strong) NSMutableArray *imageArray;
 
-@property (nonatomic, strong) NSMutableArray *selectAssetList;
+@property (nonatomic, strong) NSMutableArray<AGLALAssetModel *> *selectAssetList;
+
+@property (nonatomic, strong) AGLSendButton *sendButton;
 @end
 
 @implementation AGLPhotoCollectionController
@@ -56,10 +63,38 @@
     self.collectionView.dataSource = self;
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectionView];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(e_cancelOnClick)];
+    [self p_buildToolBar];
+    
     [self p_reloadDatas];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.toolbarHidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.navigationController.toolbarHidden = YES;
+}
 #pragma mark - private
+- (void)p_buildToolBar
+{
+    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"预览" style:UIBarButtonItemStylePlain target:self action:@selector(e_preOnClick)];
+    [item1 setTintColor:[UIColor blackColor]];
+    item1.enabled = NO;
+    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    UIBarButtonItem *item3 = [[UIBarButtonItem alloc] initWithCustomView:self.sendButton];
+    
+    [self setToolbarItems:@[item1,item2,item3] animated:NO];
+    self->preItem = item1;
+    
+    self->preItem.enabled = NO;
+    self.sendButton.enable = NO;
+}
 - (void)p_reloadDatas
 {
     self.selectAssetList = [@[] mutableCopy];
@@ -83,23 +118,36 @@
 }
 -(void)showPhotoBrowerWithIndex:(NSInteger)currentIndex{
     
-    AGLPhotoBrowserController *browserVc = [[AGLPhotoBrowserController alloc] init];
-    [browserVc setValue:@(YES) forKeyPath:@"isEditing"];
-    browserVc.currentPage = currentIndex;
-    browserVc.photos = self.imageArray;
-    browserVc.doneAssets=self.selectAssetList;
-    
-    UINavigationController *nav=[[UINavigationController alloc] initWithRootViewController:browserVc];
-    [self presentViewController:nav animated:YES completion:nil];
-    
-    // [self.navigationController pushViewController:browserVc animated:YES];
-    
+    AGLBrowerViewController *browserVc = [[AGLBrowerViewController alloc] initWithPhotoList:self.imageArray withDonesAssets:self.selectAssetList withCurrentPage:currentIndex];
+    browserVc.delegate = self;
+    [self.navigationController pushViewController:browserVc animated:YES];
+}
+- (void)p_photoDisSelect:(AGLALAssetModel *)model
+{
+    if (model.isSelected) {
+        [self.selectAssetList addObject:model];
+    } else {
+        [self.selectAssetList removeObject:model];
+    }
+    if (_selectAssetList.count > 0) {
+        self.sendButton.enable = YES;
+        self->preItem.enabled = YES;
+    } else {
+        self.sendButton.enable = NO;
+        self->preItem.enabled = NO;
+    }
+    [self.sendButton setBadge:@(_selectAssetList.count)];
 }
 #pragma mark - event
 - (void)e_onClickConfirm
 {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-    NSLog(@"选取了%@张照片",@(_selectAssetList.count));
+    if (self.delegate && [self.delegate respondsToSelector:@selector(photoCollectionController:didSelectPhoto:)]) {
+        [self.delegate photoCollectionController:self didSelectPhoto:[self.selectAssetList copy]];
+    }
+}
+- (void)e_preOnClick
+{
+    [self showPhotoBrowerWithIndex:0];
 }
 #pragma mark - UICollectionView
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -118,11 +166,7 @@
     [cell setAlassetModel:self.imageArray[indexPath.item]];
     if (cell._updateSelectBlock == nil) {
         cell._updateSelectBlock = ^(AGLALAssetModel *alssetModel) {
-            if (alssetModel.isSelected) {
-                [self.selectAssetList addObject:alssetModel.assetId];
-            } else {
-                [self.selectAssetList removeObject:alssetModel.assetId];
-            }
+            [self p_photoDisSelect:alssetModel];
         };
     }
     return cell;
@@ -131,5 +175,39 @@
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     [self showPhotoBrowerWithIndex:indexPath.row];
+}
+#pragma mark - get
+- (AGLSendButton *)sendButton
+{
+    if (!_sendButton) {
+        _sendButton = [[AGLSendButton alloc]initWithFrame:CGRectMake(0, 0, 80, 40)];
+        [_sendButton addTarget:self action:@selector(e_onClickConfirm)];
+    }
+    return _sendButton;
+}
+#pragma mark - AGLBrowerViewControllerDelegate
+- (void)browerViewController:(AGLBrowerViewController *)controller didSelectAsset:(BOOL)select withItem:(NSInteger)item
+{
+//    AGLALAssetModel *model = self.imageArray[item];
+//    model.selected = select;
+    AGLPhotoCollectionViewCell *cell = (AGLPhotoCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:0]];
+    [cell setAssetSelect:select];
+}
+- (void)browerViewController:(AGLBrowerViewController *)controller didSelectFullImage:(BOOL)fullImage
+{
+    
+}
+- (void)browerViewController:(AGLBrowerViewController *)controller didSelectSend:(NSArray *)doneAssets
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(photoCollectionController:didSelectPhoto:)]) {
+        [self.delegate photoCollectionController:self didSelectPhoto:doneAssets];
+    }
+}
+#pragma mark - event
+- (void)e_cancelOnClick
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(photoCollectionController:cancel:)]) {
+        [self.delegate photoCollectionController:self cancel:YES];
+    }
 }
 @end

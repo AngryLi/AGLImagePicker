@@ -8,12 +8,7 @@
 
 #import "UIViewController+AGLHelper.h"
 
-#import "AGLPhotoPickerController.h"
-
 #import <objc/runtime.h>
-
-@interface UIViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
-@end
 
 static void *AGLCompleteHanderKey = @"AGLCompleteHanderKey";
 
@@ -70,6 +65,7 @@ static void *AGLCompleteHanderKey = @"AGLCompleteHanderKey";
 - (void)localPhoto
 {
     AGLPhotoPickerController *picker = [[AGLPhotoPickerController alloc]init];
+    picker.aGLDelegate = self;
     [self presentViewController:picker animated:YES completion:nil];
 //    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
 //        UIImagePickerController *picker = [[UIImagePickerController alloc]init];
@@ -92,6 +88,17 @@ static void *AGLCompleteHanderKey = @"AGLCompleteHanderKey";
             callBackBock = nil;
         }
     }];
+}
+#pragma mark - AGLPhotoPickerControllerDelegate
+- (void)photoPickerController:(AGLPhotoPickerController *)picker didSelectPhoto:(NSArray<UIImage *> *)photos
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"选择了%@张照片",@(photos.count));
+}
+- (void)photoPickerController:(AGLPhotoPickerController *)picker cancelSelect:(BOOL)cancel
+{
+    NSLog(@"取消选择");
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex

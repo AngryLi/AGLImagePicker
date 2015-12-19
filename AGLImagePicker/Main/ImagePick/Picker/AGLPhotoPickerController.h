@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class AGLPhotoPickerController;
+@protocol AGLPhotoPickerControllerDelegate <NSObject>
+- (void)photoPickerController:(AGLPhotoPickerController *)picker didSelectPhoto:(NSArray<UIImage *> *)photos;
+- (void)photoPickerController:(AGLPhotoPickerController *)picker cancelSelect:(BOOL)cancel;
+@end
 @interface AGLPhotoPickerController : UINavigationController
-
+/// 因为重名了
+@property (nonatomic, weak) id<AGLPhotoPickerControllerDelegate> aGLDelegate;
 @end

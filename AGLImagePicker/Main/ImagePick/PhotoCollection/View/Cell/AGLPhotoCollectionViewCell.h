@@ -16,4 +16,7 @@ typedef void(^UpdateSelectBlock)(AGLALAssetModel *alassetModel);
 @property (nonatomic, copy) UpdateSelectBlock _updateSelectBlock;
 
 - (void)setAlassetModel:(AGLALAssetModel *)alassetModel;
+
+- (void)setAssetSelect:(BOOL)select;
+
 @end

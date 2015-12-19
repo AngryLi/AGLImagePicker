@@ -67,4 +67,10 @@
         [self p_setBtnSelected:YES];
     }
 }
+#pragma mark - public
+- (void)setAssetSelect:(BOOL)select
+{
+    [self p_setBtnSelected:select];
+//    self.alassetModel.selected = select;
+}
 @end

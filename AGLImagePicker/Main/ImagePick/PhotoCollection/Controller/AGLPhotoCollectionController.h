@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class ALAssetsGroup;
+@class ALAssetsGroup, AGLALAssetModel, AGLPhotoCollectionController;
+@protocol AGLPhotoCollectionControllerDelegate <NSObject>
+- (void)photoCollectionController:(AGLPhotoCollectionController *)controller didSelectPhoto:(NSArray<AGLALAssetModel *> *)photos;
+- (void)photoCollectionController:(AGLPhotoCollectionController *)controller cancel:(BOOL)cancel;
+@end
 @interface AGLPhotoCollectionController : UIViewController
+@property (nonatomic, weak) id<AGLPhotoCollectionControllerDelegate> delegate;
+
 - (instancetype)initWithALAssetsGroup:(ALAssetsGroup *)group;
 @end

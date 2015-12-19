@@ -17,4 +17,5 @@
 - (void)setAssetId:(NSNumber *)assetId;
 - (void)setAlAsset:(ALAsset *)alAsset;
 - (UIImage *)getThumbnail;
+- (UIImage *)getDefault;
 @end

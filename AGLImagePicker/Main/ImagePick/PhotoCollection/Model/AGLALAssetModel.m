@@ -34,6 +34,10 @@
 {
     return self.image;
 }
+- (UIImage *)getDefault
+{
+    return [UIImage imageWithCGImage:_alAsset.defaultRepresentation.fullResolutionImage];
+}
 - (UIImage *)image
 {
     if (!_image) {

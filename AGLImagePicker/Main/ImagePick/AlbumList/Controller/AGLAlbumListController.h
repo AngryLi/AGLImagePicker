@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class AGLAlbumListController, AGLALAssetModel;
+@protocol AGLAlbumListControllerDelegate <NSObject>
+- (void)albumListController:(AGLAlbumListController *)controller didSelectPhotos:(NSArray<AGLALAssetModel *> *)photos;
+- (void)albumListController:(AGLAlbumListController *)controller cancel:(BOOL)cancel;
+@end
 @interface AGLAlbumListController : UITableViewController
-
+@property (nonatomic, weak) id<AGLAlbumListControllerDelegate> delegate;
 @end
