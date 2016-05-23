@@ -36,39 +36,40 @@
         [self.contentView addSubview:_scrollView];
         _photoImageView = [[AGLTapImageView alloc] initWithFrame:_scrollView.bounds];
         _photoImageView.delegate = self;
+        _photoImageView.userInteractionEnabled = YES;
         _photoImageView.contentMode = UIViewContentModeScaleAspectFit;
         [_scrollView addSubview:_photoImageView];
     }
     return self;
 }
-
-- (void)layoutSubviews {
-    // Super
-    [super layoutSubviews];
-    
-    // Center the image as it becomes smaller than the size of the screen
-    CGSize boundsSize = _scrollView.bounds.size;
-    CGRect frameToCenter = _photoImageView.frame;
-    
-    // Horizontally
-    if (frameToCenter.size.width < boundsSize.width) {
-        frameToCenter.origin.x = floorf((boundsSize.width - frameToCenter.size.width) / 2.0);
-    } else {
-        frameToCenter.origin.x = 0;
-    }
-    
-    // Vertically
-    if (frameToCenter.size.height < boundsSize.height) {
-        frameToCenter.origin.y = floorf((boundsSize.height - frameToCenter.size.height) / 2.0);
-    } else {
-        frameToCenter.origin.y = 0;
-    }
-    
-    // Center
-    if (!CGRectEqualToRect(_photoImageView.frame, frameToCenter))
-        _photoImageView.frame = frameToCenter;
-    
-}
+//
+//- (void)layoutSubviews {
+//    // Super
+//    [super layoutSubviews];
+//    
+//    // Center the image as it becomes smaller than the size of the screen
+//    CGSize boundsSize = _scrollView.bounds.size;
+//    CGRect frameToCenter = _photoImageView.frame;
+//    
+//    // Horizontally
+//    if (frameToCenter.size.width < boundsSize.width) {
+//        frameToCenter.origin.x = floorf((boundsSize.width - frameToCenter.size.width) / 2.0);
+//    } else {
+//        frameToCenter.origin.x = 0;
+//    }
+//    
+//    // Vertically
+//    if (frameToCenter.size.height < boundsSize.height) {
+//        frameToCenter.origin.y = floorf((boundsSize.height - frameToCenter.size.height) / 2.0);
+//    } else {
+//        frameToCenter.origin.y = 0;
+//    }
+//    
+//    // Center
+//    if (!CGRectEqualToRect(_photoImageView.frame, frameToCenter))
+//        _photoImageView.frame = frameToCenter;
+//    
+//}
 - (void)setAssetModel:(AGLALAssetModel *)assetModel
 {
     _assetModel = assetModel;
@@ -80,7 +81,7 @@
 {
     return _photoImageView;
 }
-- (void)imageView:(UIImageView *)imageView doubleTapDetected:(UITouch *)touch {
+- (void)imageView:(UIImageView *)imageView doubleTapDetected:(UITapGestureRecognizer *)touch {
     CGPoint touchPoint = [touch locationInView:touch.view];
     // Zoom
     if (_scrollView.zoomScale != _scrollView.minimumZoomScale) {
@@ -92,15 +93,12 @@
         CGFloat xsize = _scrollView.bounds.size.width / newZoomScale;
         CGFloat ysize = _scrollView.bounds.size.height / newZoomScale;
         [_scrollView zoomToRect:CGRectMake(touchPoint.x - xsize / 2, touchPoint.y - ysize / 2, xsize, ysize) animated:YES];
-        
     }
 }
-- (void)imageView:(UIImageView *)imageView singleTapDetected:(UITouch *)touch {
+- (void)imageView:(UIImageView *)imageView singleTapDetected:(UITapGestureRecognizer *)touch {
     if (self.delegate && [self.delegate respondsToSelector:@selector(browserCell:singleTap:)]) {
         [self.delegate browserCell:self singleTap:YES];
     }
 }
-- (void)imageView:(UIImageView *)imageView tripleTapDetected:(UITouch *)touch {
-    
-}
+
 @end

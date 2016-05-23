@@ -30,7 +30,7 @@
         _btnSelect.imageView.contentMode = UIViewContentModeScaleToFill;
         [_btnSelect setImage:[UIImage imageNamed:@"photo_check_default"] forState:UIControlStateNormal];
         [_btnSelect setImage:[UIImage imageNamed:@"photo_check_selected"] forState:UIControlStateSelected];
-        _btnSelect.frame = CGRectMake(CGRectGetMaxX(self.bounds) - 5 - 25, 5, 25, 25);
+        _btnSelect.frame = CGRectMake(CGRectGetMaxX(self.bounds) - 30, 0, 30, 30);
         [_btnSelect addTarget:self action:@selector(e_onClickBtnSelect:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_btnSelect];
     }

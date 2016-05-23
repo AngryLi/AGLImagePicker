@@ -9,6 +9,8 @@
 #import "AGLPhotoCollectionController.h"
 #import "AGLBrowerViewController.h"
 
+#import "AGLPhotoPickerConstants.h"
+
 #import "AGLPhotoCollectionViewCell.h"
 
 #import "AGLSendButton.h"
@@ -141,9 +143,7 @@
 #pragma mark - event
 - (void)e_onClickConfirm
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(photoCollectionController:didSelectPhoto:)]) {
-        [self.delegate photoCollectionController:self didSelectPhoto:[self.selectAssetList copy]];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:AGLPhotoPickerDoneNotification object:[_selectAssetList copy]];
 }
 - (void)e_preOnClick
 {
@@ -199,15 +199,11 @@
 }
 - (void)browerViewController:(AGLBrowerViewController *)controller didSelectSend:(NSArray *)doneAssets
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(photoCollectionController:didSelectPhoto:)]) {
-        [self.delegate photoCollectionController:self didSelectPhoto:doneAssets];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:AGLPhotoPickerDoneNotification object:doneAssets];
 }
 #pragma mark - event
 - (void)e_cancelOnClick
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(photoCollectionController:cancel:)]) {
-        [self.delegate photoCollectionController:self cancel:YES];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:AGLPhotoPickerCancelNotification object:nil];
 }
 @end

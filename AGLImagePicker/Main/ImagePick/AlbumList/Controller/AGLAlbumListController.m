@@ -10,11 +10,13 @@
 
 #import "AGLPhotoCollectionController.h"
 
+#import "AGLPhotoPickerConstants.h"
+
 #import <AssetsLibrary/AssetsLibrary.h>
 
 static ALAssetsLibrary *assetLibrary;
 
-@interface AGLAlbumListController () <AGLPhotoCollectionControllerDelegate>
+@interface AGLAlbumListController ()
 @property (nonatomic, strong) NSArray *photoGoupList;
 
 @property (nonatomic, strong) NSArray<NSNumber *> *groupTypes;
@@ -25,16 +27,14 @@ static ALAssetsLibrary *assetLibrary;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self p_buildNavigationBar];
+    self.tableView.rowHeight = 60;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(e_cancelOnClick)];
     
     [self p_reloadPhotoGroups];
 }
 
-- (void)p_buildNavigationBar
-{
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(e_cancelOnClick)];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(e_doneOnClick)];
-}
 #pragma mark - private
 - (void)showUnAuthorizedTipsView
 {
@@ -102,15 +102,11 @@ static ALAssetsLibrary *assetLibrary;
 
 - (void)e_cancelOnClick
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(albumListController:cancel:)]) {
-        [self.delegate albumListController:self cancel:YES];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:AGLPhotoPickerCancelNotification object:nil];
 }
 - (void)e_doneOnClick
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(albumListController:didSelectPhotos:)]) {
-        [self.delegate albumListController:self didSelectPhotos:@[]];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:AGLPhotoPickerDoneNotification object:@[]];
 }
 #pragma mark - Table view data source
 
@@ -142,7 +138,6 @@ static ALAssetsLibrary *assetLibrary;
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     AGLPhotoCollectionController *photoListVc = [[AGLPhotoCollectionController alloc]initWithALAssetsGroup:self.photoGoupList[indexPath.item]];
-    photoListVc.delegate = self;
     [self.navigationController pushViewController:photoListVc animated:YES];
 }
 
@@ -157,14 +152,10 @@ static ALAssetsLibrary *assetLibrary;
 #pragma mark - AGLPhotoCollectionControllerDelegate
 - (void)photoCollectionController:(AGLPhotoCollectionController *)controller cancel:(BOOL)cancel
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(albumListController:cancel:)]) {
-        [self.delegate albumListController:self cancel:cancel];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:AGLPhotoPickerCancelNotification object:nil];
 }
 - (void)photoCollectionController:(AGLPhotoCollectionController *)controller didSelectPhoto:(NSArray<AGLALAssetModel *> *)photos
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(albumListController:didSelectPhotos:)]) {
-        [self.delegate albumListController:self didSelectPhotos:photos];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:AGLPhotoPickerDoneNotification object:photos];
 }
 @end

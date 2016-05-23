@@ -15,7 +15,6 @@
 @end
 @protocol AGLTapImageViewDelegate <NSObject>
 @optional
-- (void)imageView:(UIImageView *)imageView singleTapDetected:(UITouch *)touch;
-- (void)imageView:(UIImageView *)imageView doubleTapDetected:(UITouch *)touch;
-- (void)imageView:(UIImageView *)imageView tripleTapDetected:(UITouch *)touch;
+- (void)imageView:(UIImageView *)imageView singleTapDetected:(UITapGestureRecognizer *)touch;
+- (void)imageView:(UIImageView *)imageView doubleTapDetected:(UITapGestureRecognizer *)touch;
 @end

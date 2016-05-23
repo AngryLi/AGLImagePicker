@@ -12,7 +12,9 @@
 
 #import "AGLALAssetModel.h"
 
-@interface AGLPhotoPickerController () <AGLAlbumListControllerDelegate>
+#import "AGLPhotoPickerConstants.h"
+
+@interface AGLPhotoPickerController ()
 
 @end
 
@@ -20,23 +22,33 @@
 - (instancetype)init
 {
     AGLAlbumListController *albumListVc = [[AGLAlbumListController alloc]init];
-    albumListVc.delegate = self;
     self = [super initWithRootViewController:albumListVc];
     if (self) {
         self.navigationBar.translucent = YES;
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti_cancel) name:AGLPhotoPickerCancelNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti_done:) name:AGLPhotoPickerDoneNotification object:nil];
     }
     return self;
 }
 
-- (void)albumListController:(AGLAlbumListController *)controller cancel:(BOOL)cancel
-{
-    if (self.aGLDelegate && [self.aGLDelegate respondsToSelector:@selector(photoPickerController:cancelSelect:)]) {
-        [self.aGLDelegate photoPickerController:self cancelSelect:cancel];
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)noti_cancel {
+    if (_aGLDelegate) {
+        [_aGLDelegate photoPickerControllerDidCancel:self];
     }
 }
-- (void)albumListController:(AGLAlbumListController *)controller didSelectPhotos:(NSArray<AGLALAssetModel *> *)photos
-{
-    if (self.aGLDelegate && [self.aGLDelegate respondsToSelector:@selector(photoPickerController:didSelectPhoto:)]) {
+
+- (void)noti_done:(NSNotification *)noti {
+    
+    NSArray<AGLALAssetModel *> *photos = noti.object;
+    
+    if (self.aGLDelegate) {
         NSMutableArray *images = [@[] mutableCopy];
         [photos enumerateObjectsUsingBlock:^(AGLALAssetModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [images addObject:[obj getDefault]];

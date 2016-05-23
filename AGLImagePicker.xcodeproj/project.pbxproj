@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		D622A7E51C252BD200869BB5 /* AGLSendButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D622A7E41C252BD200869BB5 /* AGLSendButton.m */; };
 		D622A7EF1C255EFF00869BB5 /* AGLBrowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D622A7EC1C255EFF00869BB5 /* AGLBrowerViewController.m */; };
-		D622A7F31C255F2200869BB5 /* AGLBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D622A7F21C255F2200869BB5 /* AGLBrowserCell.m */; };
-		D622A7F61C258BD800869BB5 /* AGLTapImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D622A7F51C258BD800869BB5 /* AGLTapImageView.m */; };
+		D64615911CF21444008D3B91 /* AGLBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D646158F1CF21444008D3B91 /* AGLBrowserCell.m */; };
+		D64615941CF21457008D3B91 /* AGLTapImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D64615931CF21457008D3B91 /* AGLTapImageView.m */; };
 		D68C0E3D1C1C1274007235EE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D68C0E3C1C1C1274007235EE /* main.m */; };
 		D68C0E481C1C1274007235EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D68C0E471C1C1274007235EE /* Assets.xcassets */; };
 		D68C0E4B1C1C1274007235EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D68C0E491C1C1274007235EE /* LaunchScreen.storyboard */; };
@@ -29,10 +29,11 @@
 		D622A7E41C252BD200869BB5 /* AGLSendButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLSendButton.m; sourceTree = "<group>"; };
 		D622A7EB1C255EFF00869BB5 /* AGLBrowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLBrowerViewController.h; sourceTree = "<group>"; };
 		D622A7EC1C255EFF00869BB5 /* AGLBrowerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLBrowerViewController.m; sourceTree = "<group>"; };
-		D622A7F11C255F2200869BB5 /* AGLBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLBrowserCell.h; sourceTree = "<group>"; };
-		D622A7F21C255F2200869BB5 /* AGLBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLBrowserCell.m; sourceTree = "<group>"; };
-		D622A7F41C258BD800869BB5 /* AGLTapImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLTapImageView.h; sourceTree = "<group>"; };
-		D622A7F51C258BD800869BB5 /* AGLTapImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLTapImageView.m; sourceTree = "<group>"; };
+		D646158E1CF21444008D3B91 /* AGLBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLBrowserCell.h; sourceTree = "<group>"; };
+		D646158F1CF21444008D3B91 /* AGLBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLBrowserCell.m; sourceTree = "<group>"; };
+		D64615921CF21457008D3B91 /* AGLTapImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLTapImageView.h; sourceTree = "<group>"; };
+		D64615931CF21457008D3B91 /* AGLTapImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLTapImageView.m; sourceTree = "<group>"; };
+		D64615951CF2169B008D3B91 /* AGLPhotoPickerConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGLPhotoPickerConstants.h; sourceTree = "<group>"; };
 		D68C0E381C1C1274007235EE /* AGLImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AGLImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D68C0E3C1C1C1274007235EE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D68C0E471C1C1274007235EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,15 +68,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D622A7E91C255EFF00869BB5 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				D622A7F11C255F2200869BB5 /* AGLBrowserCell.h */,
-				D622A7F21C255F2200869BB5 /* AGLBrowserCell.m */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
 		D622A7EA1C255EFF00869BB5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +75,33 @@
 				D622A7EC1C255EFF00869BB5 /* AGLBrowerViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		D646158C1CF21444008D3B91 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D646158D1CF21444008D3B91 /* Cell */,
+				D64615901CF21444008D3B91 /* ImageView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D646158D1CF21444008D3B91 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D646158E1CF21444008D3B91 /* AGLBrowserCell.h */,
+				D646158F1CF21444008D3B91 /* AGLBrowserCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		D64615901CF21444008D3B91 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				D64615921CF21457008D3B91 /* AGLTapImageView.h */,
+				D64615931CF21457008D3B91 /* AGLTapImageView.m */,
+			);
+			path = ImageView;
 			sourceTree = "<group>";
 		};
 		D68C0E2F1C1C1274007235EE = {
@@ -138,6 +157,7 @@
 				D68C0E7C1C1C3580007235EE /* PhotoCollection */,
 				D68C0E7E1C1C3580007235EE /* Picker */,
 				D68C0E741C1C2C76007235EE /* AlbumList */,
+				D64615951CF2169B008D3B91 /* AGLPhotoPickerConstants.h */,
 			);
 			path = ImagePick;
 			sourceTree = "<group>";
@@ -199,9 +219,7 @@
 		D68C0ECC1C1C8B0B007235EE /* Brower */ = {
 			isa = PBXGroup;
 			children = (
-				D622A7F41C258BD800869BB5 /* AGLTapImageView.h */,
-				D622A7F51C258BD800869BB5 /* AGLTapImageView.m */,
-				D622A7E91C255EFF00869BB5 /* Cell */,
+				D646158C1CF21444008D3B91 /* View */,
 				D622A7EA1C255EFF00869BB5 /* Controller */,
 			);
 			path = Brower;
@@ -302,6 +320,7 @@
 				TargetAttributes = {
 					D68C0E371C1C1274007235EE = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = H2DBJCY9C5;
 					};
 				};
 			};
@@ -341,14 +360,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D68C0E811C1C3580007235EE /* AGLPhotoPickerController.m in Sources */,
-				D622A7F31C255F2200869BB5 /* AGLBrowserCell.m in Sources */,
+				D64615911CF21444008D3B91 /* AGLBrowserCell.m in Sources */,
+				D64615941CF21457008D3B91 /* AGLTapImageView.m in Sources */,
 				D68C0EE11C1C8B5F007235EE /* UIViewController+AGLHelper.m in Sources */,
 				D68C0EC21C1C5921007235EE /* AppDelegate.m in Sources */,
 				D68C0EE21C1C8B5F007235EE /* AGLStartViewController.m in Sources */,
 				D622A7E51C252BD200869BB5 /* AGLSendButton.m in Sources */,
 				D68C0ED81C1C8B35007235EE /* AGLPhotoCollectionViewCell.m in Sources */,
 				D68C0E3D1C1C1274007235EE /* main.m in Sources */,
-				D622A7F61C258BD800869BB5 /* AGLTapImageView.m in Sources */,
 				D68C0ED71C1C8B35007235EE /* AGLALAssetModel.m in Sources */,
 				D622A7EF1C255EFF00869BB5 /* AGLBrowerViewController.m in Sources */,
 				D68C0E841C1C35A6007235EE /* AGLPhotoCollectionController.m in Sources */,
@@ -454,11 +473,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = AGLImagePicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.angryli.AGLImagePicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -466,11 +488,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = AGLImagePicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.angryli.AGLImagePicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

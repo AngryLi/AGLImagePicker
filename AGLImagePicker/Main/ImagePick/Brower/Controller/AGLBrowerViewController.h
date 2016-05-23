@@ -18,5 +18,5 @@
 @interface AGLBrowerViewController : UIViewController
 @property (nonatomic, weak) id<AGLBrowerViewControllerDelegate> delegate;
 
-- (id)initWithPhotoList:(NSArray<AGLALAssetModel *> *)photos withDonesAssets:(NSArray *)dones withCurrentPage:(NSInteger)page;
+- (instancetype)initWithPhotoList:(NSArray<AGLALAssetModel *> *)photos withDonesAssets:(NSArray *)dones withCurrentPage:(NSInteger)page;
 @end

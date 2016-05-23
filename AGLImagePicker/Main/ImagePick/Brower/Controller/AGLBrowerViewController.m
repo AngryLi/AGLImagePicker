@@ -185,7 +185,7 @@ static NSInteger ZLPickerColletionViewPadding = 20;
 - (void)p_updateNavigationAndBottomToolBar
 {
     // Force visible
-    BOOL hidden = !self->_bottomToolBar.alpha == 0;
+    BOOL hidden = !(self->_bottomToolBar.alpha == 0);
     // Animations & positions
     CGFloat animatonOffset = 20;
     CGFloat animationDuration = 0.35;

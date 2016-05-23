@@ -11,7 +11,7 @@
 @class AGLPhotoPickerController;
 @protocol AGLPhotoPickerControllerDelegate <NSObject>
 - (void)photoPickerController:(AGLPhotoPickerController *)picker didSelectPhoto:(NSArray<UIImage *> *)photos;
-- (void)photoPickerController:(AGLPhotoPickerController *)picker cancelSelect:(BOOL)cancel;
+- (void)photoPickerControllerDidCancel:(AGLPhotoPickerController *)picker;
 @end
 @interface AGLPhotoPickerController : UINavigationController
 /// 因为重名了
